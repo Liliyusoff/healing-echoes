@@ -1,0 +1,1 @@
+export default function Loading(){return <main className="container"><div className="eyebrow">Loading your studio</div><h1>Campaigns</h1><div className="grid">{[1,2,3].map(x=><div className="skeleton" key={x}/>)}</div></main>}
