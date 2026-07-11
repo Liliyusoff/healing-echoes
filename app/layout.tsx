@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./password.css";
 import AppShell from "./app-shell";
 import { createClient } from "@/lib/supabase/server";
 
