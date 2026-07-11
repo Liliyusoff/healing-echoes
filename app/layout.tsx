@@ -1,22 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AppShell from "./app-shell";
+import { createClient } from "@/lib/supabase/server";
 
-export const metadata: Metadata = {
-  title: "Healing Echoes",
-  description: "Turn one healing offering into a complete, authentic campaign.",
-};
+export const metadata: Metadata = { title: "Healing Echoes", description: "Turn one healing offering into a complete, authentic campaign." };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body>
-        <header className="site-header"><a className="brand" href="/campaigns">Healing Echoes <span>✦</span></a><nav><a href="/campaigns">Campaigns</a><a href="/brand-voice">Brand voice</a><a className="button small" href="/campaigns/new">New campaign</a></nav></header>
-        {children}
-      </body>
-    </html>
-  );
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  return <html lang="en"><body><AppShell userEmail={user?.email ?? null}>{children}</AppShell></body></html>;
 }
